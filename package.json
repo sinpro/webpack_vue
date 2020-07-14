@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node ./build/dev-server",
     "build:fat": "webpack --config ./build/webpack.fat.conf.js --progress --mode production",
-    "build:prod": "webpack --config ./build/webpack.prod.conf.js --progress --mode production",
+    "build:uat": "webpack --config ./build/webpack.uat.conf.js --progress --mode production",
+    "build": "webpack --config ./build/webpack.prod.conf.js --progress --mode production",
     "watch": "webpack --config ./build/webpack.prod.conf.js --mode production --hide-modules",
     "test": "jest"
   },
