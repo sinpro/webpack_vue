@@ -20,18 +20,18 @@ const {
 	hashLen,
 	postcssLoaderOptions,
 	imagesPublicPath,
-	prodDistPath,
+	fatDistPath,
 	publicPath
 } = require('../config');
 
 // let entrys = utils.getMultiEntry('./src/templates/*.ejs');
-let entrys = utils.getMultiEntry('./src/templates/prd.ejs');
+let entrys = utils.getMultiEntry('./src/templates/fat.ejs');
 let htmlPlugins = {
 	plugins: []
 };
 let bundleAnalyzerPlugin = {
-	plugins: process.env.npm_config_report ? [new BundleAnalyzerPlugin()] : []
-	// plugins:[new BundleAnalyzerPlugin()] //分析js占比的弹出
+	// plugins: process.env.npm_config_report ? [new BundleAnalyzerPlugin()] : []
+	plugins:[new BundleAnalyzerPlugin()] //分析js占比的弹出
 };
 for (let key in entrys) {
 	htmlPlugins.plugins.push(new HtmlWebpackPlugin({
@@ -55,7 +55,7 @@ process.noDeprecation = true;
 
 module.exports = merge(baseConfig, htmlPlugins, bundleAnalyzerPlugin, {
 	output: {
-		path: prodDistPath,
+		path: fatDistPath,
 		publicPath: publicPath,
 		filename: `${assets}/js/[name].js?v=[chunkhash:${hashLen}]`
 	},
@@ -182,7 +182,7 @@ module.exports = merge(baseConfig, htmlPlugins, bundleAnalyzerPlugin, {
 	},
 	plugins: [
 		new CleanWebpackPlugin({
-			cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, '../dist/dist-prod')]
+			cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, '../dist/dist-fat')]
 		}),
 		new CopyWebpackPlugin([
 			{
@@ -196,7 +196,7 @@ module.exports = merge(baseConfig, htmlPlugins, bundleAnalyzerPlugin, {
 		new webpack.DefinePlugin({
 			'process.mock': JSON.stringify('mock'),
 			'process.env.NODE_ENV': JSON.stringify('production'),
-			'process.env.IS_TRACK': JSON.stringify('open'),
+			// 'process.env.IS_TRACK': JSON.stringify('open'),
 		}),
 		new MiniCssExtractPlugin({
 			filename: `${assets}/css/[name].css?v=[contenthash:${hashLen}]`,

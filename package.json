@@ -1,10 +1,11 @@
 {
   "name": "wpvue",
   "version": "1.0.0",
-  "description": "a vue project of webpack@4.0",
+  "description": "a vue project of webpack@4.0+",
   "scripts": {
     "dev": "node ./build/dev-server",
-    "build": "webpack --config ./build/webpack.prod.conf.js --progress --mode production",
+    "build:fat": "webpack --config ./build/webpack.fat.conf.js --progress --mode production",
+    "build:prod": "webpack --config ./build/webpack.prod.conf.js --progress --mode production",
     "watch": "webpack --config ./build/webpack.prod.conf.js --mode production --hide-modules",
     "test": "jest"
   },
